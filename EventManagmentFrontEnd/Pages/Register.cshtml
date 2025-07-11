@@ -1,0 +1,348 @@
+﻿@page "/Register"
+@model EventManagmentFrontEnd.Pages.Pages_Register
+@{
+    ViewData["Title"] = "Register";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Event Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card {
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-link:hover {
+            color: #fff !important;
+        }
+
+        .register-card {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-text {
+            font-size: 0.875rem;
+        }
+
+        .register-benefits {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-icon {
+            color: #667eea;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-calendar-alt me-2"></i>Event Manager
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Events">Events</a>
+                    </li>
+                    <li class="nav-item protected-nav" style="display: none;">
+                        <a class="nav-link" href="/CreateEvent">Create Event</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item auth-nav">
+                        <a class="nav-link" href="/Login">Login</a>
+                    </li>
+                    <li class="nav-item auth-nav">
+                        <a class="nav-link active" href="/Register">Register</a>
+                    </li>
+                    <li class="nav-item protected-nav" style="display: none;">
+                        <a class="nav-link" href="#" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt me-1"></i>Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-4">
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="hero-section text-white p-5 rounded mb-4">
+                    <div class="text-center">
+                        <h1 class="display-4 mb-3">Join Our Community</h1>
+                        <p class="lead mb-4">Create your account and start organizing amazing events today</p>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="fas fa-users fa-2x me-3"></i>
+                            <span class="h5 mb-0">Already have thousands of active event organizers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card shadow-lg register-card">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-user-plus fa-3x text-primary mb-3"></i>
+                            <h2 class="card-title">Create Account</h2>
+                            <p class="text-muted">Fill in your details to get started</p>
+                        </div>
+
+                        <form id="registerForm">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">
+                                    <i class="fas fa-envelope me-2"></i>Email Address
+                                </label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid email address.
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">
+                                    <i class="fas fa-lock me-2"></i>Password
+                                </label>
+                                <div class="position-relative">
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <button type="button" class="btn btn-outline-secondary position-absolute end-0 top-0 h-100 px-3" id="togglePassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="form-text" id="passwordHelp">
+                                    Password must be at least 8 characters with uppercase, lowercase, and numbers.
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please provide a strong password.
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">
+                                    <i class="fas fa-lock me-2"></i>Confirm Password
+                                </label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                                <div class="invalid-feedback">
+                                    Passwords do not match.
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                                <i class="fas fa-user-plus me-2"></i>Create Account
+                            </button>
+
+                            <div class="text-center">
+                                <p class="mb-0">Already have an account? 
+                                    <a href="/Login" class="text-primary text-decoration-none">
+                                        <i class="fas fa-sign-in-alt me-1"></i>Sign In
+                                    </a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Benefits Section -->
+            <div class="col-lg-6">
+                <div class="register-benefits">
+                    <h3 class="text-center mb-4">
+                        <i class="fas fa-star text-warning me-2"></i>Why Join Event Manager?
+                    </h3>
+                    
+                    <div class="benefit-item">
+                        <i class="fas fa-calendar-plus benefit-icon"></i>
+                        <div>
+                            <h5 class="mb-1">Create Unlimited Events</h5>
+                            <p class="text-muted mb-0">Organize as many events as you want with our powerful tools</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Event Manager</h5>
+                    <p class="mb-0">Your go-to platform for event management and discovery.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">&copy; 2025 Event Manager. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="toastMessage" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="fas fa-info-circle text-primary me-2"></i>
+                <strong class="me-auto">Notification</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                <!-- Toast message will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const registerForm = document.getElementById('registerForm');
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            togglePassword.addEventListener('click', function () {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            });
+            registerForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const submitBtn = registerForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Creating Account...';
+                submitBtn.disabled = true;
+
+                const formData = {
+                    email: document.getElementById('email').value,
+                    password: document.getElementById('password').value,
+                    ConfirmPassword: document.getElementById('confirmPassword').value
+                }
+
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+                if (!passwordRegex.test(formData.password)) {
+                    showToast('Password must be at least 8 characters with uppercase, lowercase, and numbers.', 'error');
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    return;
+                }
+
+                if (formData.password !== formData.ConfirmPassword) {
+                    showToast('Passwords do not match.', 'error');
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    return;
+                }
+
+                try {
+                    const response = await fetch('https://localhost:7286/api/Auth/Register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        showToast('Registration successful! Redirecting to login...', 'success');
+                        setTimeout(() => {
+                            window.location.href = '/Login';
+                        }, 1500);
+                    } else {
+                        const errorData = await response.json();
+                        showToast('Registration failed: ' + (errorData.message || 'Unknown error'), 'error');
+                    }
+                } catch (error) {
+                    console.error('Registration error:', error);
+                    showToast('An error occurred. Please try again later.', 'error');
+                } finally {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+            function showToast(message, type = 'info') {
+                const toastContainer = document.querySelector('.toast-container');
+                const toastElement = document.getElementById('toastMessage');
+                const toastBody = toastElement.querySelector('.toast-body');
+                const toastIcon = toastElement.querySelector('.toast-header i');
+
+                toastBody.textContent = message;
+
+                toastIcon.className = 'me-2';
+                if (type === 'success') {
+                    toastIcon.classList.add('fas', 'fa-check-circle', 'text-success');
+                } else if (type === 'error') {
+                    toastIcon.classList.add('fas', 'fa-exclamation-triangle', 'text-danger');
+                } else {
+                    toastIcon.classList.add('fas', 'fa-info-circle', 'text-primary');
+                }
+
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+            }
+
+            const token = localStorage.getItem('token');
+            if (token) {
+                window.location.href = '/Events';
+            }
+        });
+
+          const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userEmail');
+                    window.location.href = '/';
+                });
+            }
+        
+    </script>
+</body>
+</html>

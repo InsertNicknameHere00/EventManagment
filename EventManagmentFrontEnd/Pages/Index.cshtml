@@ -1,0 +1,221 @@
+﻿@page
+@model EventManagmentFrontEnd.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <style>
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+            .card-link:hover {
+                color: inherit;
+                text-decoration: none;
+            }
+
+                .card-link:hover .card {
+                    transform: translateY(-5px);
+                    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+                }
+
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card {
+            transition: all 0.3s ease;
+            border: none;
+            height: 100%;
+        }
+
+        .feature-icon {
+            margin-bottom: 1rem;
+        }
+
+        .nav-link:hover {
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-calendar-alt me-2"></i>Event Manager
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Events">Events</a>
+                    </li>
+                    <li class="nav-item protected-nav" style="display: none;">
+                        <a class="nav-link" href="/CreateEvent">Create Event</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item auth-nav">
+                        <a class="nav-link" href="/Login">Login</a>
+                    </li>
+                    <li class="nav-item auth-nav">
+                        <a class="nav-link" href="/Register">Register</a>
+                    </li>
+                    <li class="nav-item protected-nav" style="display: none;">
+                        <a class="nav-link" href="#" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt me-1"></i>Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-4">
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="hero-section text-white p-5 rounded mb-4">
+                    <div class="text-center">
+                        <h1 class="display-4 mb-3">Welcome to Event Manager</h1>
+                        <p class="lead mb-4">Create, manage, and discover amazing events in your community</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Action Cards -->
+        <div class="row g-4 mb-5">
+            <!-- Register Card -->
+            <div class="col-md-6 col-lg-3">
+                <a href="/Register" class="card-link">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body text-center d-flex flex-column">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-user-plus fa-4x text-success"></i>
+                            </div>
+                            <h5 class="card-title">Register</h5>
+                            <p class="card-text flex-grow-1">Join our community and start creating amazing events today.</p>
+                            <div class="mt-auto">
+                                <span class="btn btn-success btn-sm">
+                                    <i class="fas fa-arrow-right me-1"></i>Get Started
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Login Card -->
+            <div class="col-md-6 col-lg-3">
+                <a href="/Login" class="card-link">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body text-center d-flex flex-column">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-sign-in-alt fa-4x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">Login</h5>
+                            <p class="card-text flex-grow-1">Access your account and manage your events with ease.</p>
+                            <div class="mt-auto">
+                                <span class="btn btn-primary btn-sm">
+                                    <i class="fas fa-arrow-right me-1"></i>Sign In
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Browse Events Card -->
+            <div class="col-md-6 col-lg-3">
+                <a href="/Events" class="card-link">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body text-center d-flex flex-column">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-calendar fa-4x text-info"></i>
+                            </div>
+                            <h5 class="card-title">Browse Events</h5>
+                            <p class="card-text flex-grow-1">Discover exciting events happening in your area and beyond.</p>
+                            <div class="mt-auto">
+                                <span class="btn btn-info btn-sm">
+                                    <i class="fas fa-search me-1"></i>Explore
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Create Event Card -->
+            <div class="col-md-6 col-lg-3">
+                <a href="/CreateEvent" class="card-link">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body text-center d-flex flex-column">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-plus-circle fa-4x text-warning"></i>
+                            </div>
+                            <h5 class="card-title">Create Event</h5>
+                            <p class="card-text flex-grow-1">Plan and organize your own events with our powerful tools.</p>
+                            <div class="mt-auto">
+                                <span class="btn btn-warning btn-sm">
+                                    <i class="fas fa-plus me-1"></i>Create
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Event Manager</h5>
+                    <p class="mb-0">Your go-to platform for event management and discovery.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">&copy; 2025 Event Manager. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="toastMessage" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="fas fa-info-circle text-primary me-2"></i>
+                <strong class="me-auto">Notification</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                <!-- Toast message will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeAuth();
+        });
+    </script>
+</body>
+</html>

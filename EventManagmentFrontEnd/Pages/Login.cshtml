@@ -1,0 +1,392 @@
+﻿@page "/Login"
+@model EventManagmentFrontEnd.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Event Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card {
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            }
+
+        .nav-link:hover {
+            color: #fff !important;
+        }
+
+        .login-card {
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .login-features {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon {
+            color: #667eea;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .social-login {
+            border-top: 1px solid #e9ecef;
+            margin-top: 2rem;
+            padding-top: 2rem;
+        }
+
+        .btn-social {
+            width: 100%;
+            margin-bottom: 0.5rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .login-stats {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            margin: 0 1rem;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-calendar-alt me-2"></i>Event Manager
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Events">Events</a>
+                    </li>
+                    <li class="nav-item protected-nav" style="display: none;">
+                        <a class="nav-link" href="/CreateEvent">Create Event</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item auth-nav">
+                        <a class="nav-link active" href="/Login">Login</a>
+                    </li>
+                    <li class="nav-item auth-nav">
+                        <a class="nav-link" href="/Register">Register</a>
+                    </li>
+                    <li class="nav-item protected-nav" style="display: none;">
+                        <a class="nav-link" href="#" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt me-1"></i>Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-4">
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="hero-section text-white p-5 rounded mb-4">
+                    <div class="text-center">
+                        <h1 class="display-4 mb-3">Welcome Back</h1>
+                        <p class="lead mb-4">Sign in to your account and continue organizing amazing events</p>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="fas fa-sign-in-alt fa-2x me-3"></i>
+                            <span class="h5 mb-0">Access your event dashboard</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Form -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card shadow-lg login-card">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-sign-in-alt fa-3x text-primary mb-3"></i>
+                            <h2 class="card-title">Sign In</h2>
+                            <p class="text-muted">Enter your credentials to access your account</p>
+                        </div>
+
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">
+                                    <i class="fas fa-envelope me-2"></i>Email Address
+                                </label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid email address.
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">
+                                    <i class="fas fa-lock me-2"></i>Password
+                                </label>
+                                <div class="position-relative">
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <button type="button" class="btn btn-outline-secondary position-absolute end-0 top-0 h-100 px-3" id="togglePassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please provide your password.
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                                <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                            </button>
+
+                            <div class="text-center">
+                                <p class="mb-0">
+                                    Don't have an account?
+                                    <a href="/Register" class="text-primary text-decoration-none">
+                                        <i class="fas fa-user-plus me-1"></i>Create Account
+                                    </a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="col-lg-6">
+                <div class="login-features">
+                    <h3 class="text-center mb-4">
+                        <i class="fas fa-rocket text-primary me-2"></i>Ready to Get Started?
+                    </h3>
+
+                    <div class="feature-item">
+                        <i class="fas fa-tachometer-alt feature-icon"></i>
+                        <div>
+                            <h5 class="mb-1">Quick Dashboard Access</h5>
+                            <p class="text-muted mb-0">View all your events and manage them from one place</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <i class="fas fa-calendar-check feature-icon"></i>
+                        <div>
+                            <h5 class="mb-1">Event Management</h5>
+                            <p class="text-muted mb-0">Create, edit, and monitor your events effortlessly</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-cloud feature-icon"></i>
+                        <div>
+                            <h5 class="mb-1">Cloud Storage</h5>
+                            <p class="text-muted mb-0">Your data is safely stored and accessible anywhere</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Event Manager</h5>
+                    <p class="mb-0">Your go-to platform for event management and discovery.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">&copy; 2025 Event Manager. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="toastMessage" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="fas fa-info-circle text-primary me-2"></i>
+                <strong class="me-auto">Notification</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                <!-- Toast message will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loginForm = document.getElementById('loginForm');
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+
+            togglePassword.addEventListener('click', function () {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            });
+            loginForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const submitBtn = loginForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Signing In...';
+                submitBtn.disabled = true;
+
+                const formData = {
+                    email: document.getElementById('email').value,
+                    password: document.getElementById('password').value,
+                };
+
+                try {
+                    const response = await fetch('https://localhost:7286/api/Auth/Login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        console.log('token: ' , data.data);
+
+                        if (data.data) {
+                            localStorage.setItem('token', data.data);
+                            localStorage.setItem('userEmail', formData.email);
+
+                            if (data.user) {
+                                localStorage.setItem('userData', JSON.stringify(data.user));
+                            }
+                        }
+
+                        showToast('Login successful! Redirecting to dashboard...', 'success');
+
+                        setTimeout(() => {
+                            window.location.href = '/Events';
+                        }, 1500);
+
+                    } else {
+                        const errorData = await response.json();
+                        let errorMessage = 'Login failed. Please check your credentials.';
+
+                        if (errorData.message) {
+                            errorMessage = errorData.message;
+                        } else if (response.status === 401) {
+                            errorMessage = 'Invalid email or password. Please try again.';
+                        } else if (response.status === 403) {
+                            errorMessage = 'Account is locked or not verified. Please contact support.';
+                        }
+
+                        showToast(errorMessage, 'error');
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    showToast('Connection error. Please check your internet connection and try again.', 'error');
+                } finally {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+
+            function showToast(message, type = 'info') {
+                const toastContainer = document.querySelector('.toast-container');
+                const toastElement = document.getElementById('toastMessage');
+                const toastBody = toastElement.querySelector('.toast-body');
+                const toastIcon = toastElement.querySelector('.toast-header i');
+
+                toastBody.textContent = message;
+
+                toastIcon.className = 'me-2';
+                if (type === 'success') {
+                    toastIcon.classList.add('fas', 'fa-check-circle', 'text-success');
+                } else if (type === 'error') {
+                    toastIcon.classList.add('fas', 'fa-exclamation-triangle', 'text-danger');
+                } else {
+                    toastIcon.classList.add('fas', 'fa-info-circle', 'text-primary');
+                }
+
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+            }
+
+            const token = localStorage.getItem('token');
+            if (token) {
+                window.location.href = '/Events';
+            }
+        });
+
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userEmail');
+                    window.location.href = '/';
+                });
+            }
+
+    </script>
+</body>
+</html>
